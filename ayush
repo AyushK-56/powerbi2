@@ -1,0 +1,32 @@
+# Import Libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# Load Dataset
+data = pd.read_csv('dataset.csv')
+print("Dataset:\n", data.head())
+
+# Features (X) and Target (y)
+X = data[['Area', 'Bedrooms', 'Bathrooms']]
+y = data['Price']
+
+# Create Model
+model = LinearRegression()
+model.fit(X, y)
+
+# Coefficients
+print("Coefficients:", model.coef_)
+print("Intercept:", model.intercept_)
+
+# Predict
+predictions = model.predict([[3000, 3, 2]])
+print("Predicted Price for 3000 sq.ft, 3 bed, 2 bath:", predictions[0])
+
+# Plotting Actual vs Predicted
+plt.scatter(y, model.predict(X), color='blue')
+plt.xlabel("Actual Price")
+plt.ylabel("Predicted Price")
+plt.title("Actual vs Predicted House Prices")
+plt.show()
